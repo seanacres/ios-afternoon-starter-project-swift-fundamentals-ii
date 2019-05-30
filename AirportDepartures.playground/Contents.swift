@@ -59,36 +59,40 @@ class DepartureBoard {
 //    f. Stretch: Display a custom message if the terminal is nil, tell the traveler to see the nearest information desk for more details.
     
     func alertPassengers() {
-        var unwrappedDepartureTime: String
+        var departureTime: String
         var terminal: String
+        
+        let departureDateFormatter = DateFormatter()
+        departureDateFormatter.timeStyle = .short
+        departureDateFormatter.dateStyle = .none
         
         for departure in departures {
             
-            if let departureTime = departure.departureTime {
-                unwrappedDepartureTime = "\(departureTime)"
+            if let time = departure.departureTime {
+                departureTime = departureDateFormatter.string(from: time)
             } else {
-                unwrappedDepartureTime = "TBD"
+                departureTime = "TBD"
             }
             
             if let departureTerminal = departure.terminal {
                 terminal = "\(departureTerminal)"
-            } else {
-                terminal = "TBD"
-            }
             
-            switch departure.status {
-            case .canceled:
-                print("We're sorry your flight to \(departure.destination.city) was canceled, here is a $500 voucher")
-            case .enroute:
-                print("Your flight to \(departure.destination.city) is en route. Hope you're on it :)")
-            case .scheduled:
-                print("Your flight to \(departure.destination.city) is scheduled to depart at \(unwrappedDepartureTime) from terminal: \(terminal)")
-            case .boarding:
-                print("Your flight is boarding, please head to terminal: \(terminal) immediately. The doors are closing soon.")
-            case .delayed:
-                print("We're sorry your flight to \(departure.destination.city) has been delayed, here is a open, half-full bag of pretzels.")
-            default:
-                print("Your flight has already landed")
+                switch departure.status {
+                case .canceled:
+                    print("We're sorry your flight to \(departure.destination.city) was canceled, here is a $500 voucher.")
+                case .enroute:
+                    print("Your flight to \(departure.destination.city) is en route. Hope you're on it :)")
+                case .scheduled:
+                    print("Your flight to \(departure.destination.city) is scheduled to depart at \(departureTime) from terminal: \(terminal).")
+                case .boarding:
+                    print("Your flight is boarding, please head to terminal: \(terminal) immediately. The doors are closing soon.")
+                case .delayed:
+                    print("We're sorry your flight to \(departure.destination.city) has been delayed, here is a open, half-full bag of pretzels.")
+                default:
+                    print("Your flight has already landed")
+                }
+            } else {
+                print("Please seek the nearest information desk for more details.")
             }
         }
     }
@@ -127,14 +131,18 @@ flightBoard.addFlight(flight: flight3)
 //:
 //: d. Print out the current DepartureBoard you created using the function
 func printDepatures(departureBoard: DepartureBoard) {
-    var unwrappedDepartureTime: String
+    var departureTime: String
     var terminal: String
     
+    let departureDateFormatter = DateFormatter()
+    departureDateFormatter.timeStyle = .short
+    departureDateFormatter.dateStyle = .none
+    
     for departure in departureBoard.departures {
-        if let departureTime = departure.departureTime {
-            unwrappedDepartureTime = "\(departureTime)"
+        if let time = departure.departureTime {
+            departureTime = departureDateFormatter.string(from: time)
         } else {
-            unwrappedDepartureTime = ""
+            departureTime = ""
         }
         
         if let departureTerminal = departure.terminal {
@@ -143,7 +151,7 @@ func printDepatures(departureBoard: DepartureBoard) {
             terminal = ""
         }
         
-        print("Destination: \(departure.destination.city)\nAirline: \(departure.airline)\nFlight: \(departure.flightName)\nDeparture Time: \(unwrappedDepartureTime)\nTerminal: \(terminal)\nStatus: \(departure.status.rawValue)\n")
+        print("Destination: \(departure.destination.city)\nAirline: \(departure.airline)\nFlight: \(departure.flightName)\nDeparture Time: \(departureTime)\nTerminal: \(terminal)\nStatus: \(departure.status.rawValue)\n")
     }
 }
 
@@ -201,7 +209,7 @@ flightBoard.alertPassengers()
 //:
 //: f. Stretch: Use a [`NumberFormatter`](https://developer.apple.com/documentation/foundation/numberformatter) with the `currencyStyle` to format the amount in US dollars.
 
-func calculateAirfare(checkedBags: Int, distance: Int, travelers: Int) -> Double {
+func calculateAirfare(checkedBags: Int, distance: Int, travelers: Int) -> String {
     var airfareCost = 0.0
     let bagCost = 25.0
     let perMileCost = 0.1
@@ -210,7 +218,13 @@ func calculateAirfare(checkedBags: Int, distance: Int, travelers: Int) -> Double
     airfareCost = airfareCost + perMileCost * Double(distance)
     airfareCost = airfareCost * Double(travelers)
     
-    return airfareCost
+    let usdFormatter = NumberFormatter()
+    usdFormatter.numberStyle = .currency
+    if let formattedValue = usdFormatter.string(from: NSNumber(value: airfareCost)) {
+        return formattedValue
+    } else {
+        return "\(airfareCost)"
+    }
 }
 
 calculateAirfare(checkedBags: 2, distance: 2000, travelers: 3)
