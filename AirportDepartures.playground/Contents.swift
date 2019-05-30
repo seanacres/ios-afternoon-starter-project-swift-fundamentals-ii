@@ -49,15 +49,6 @@ class DepartureBoard {
         departures.append(flight)
     }
     
-//    Add an instance method to your DepatureBoard class (above) that can send an alert message to all passengers about their upcoming flight. Loop through the flights and use a switch on the flight status variable
-//    a. If the flight is canceled print out: "We're sorry your flight to (city) was canceled, here is a $500 voucher"
-//    b. If the flight is scheduled print out: "Your flight to (city) is scheduled to depart at (time) from terminal: (terminal)"
-//    c. If their flight is boarding print out: "Your flight is boarding, please head to terminal: (terminal) immediately. The doors are closing soon."
-//    d. If the departureTime or terminal are optional, use "TBD" instead of a blank String
-//    e. If you have any other cases to handle please print out appropriate messages
-//    d. Call the alertPassengers() function on your DepartureBoard object below
-//    f. Stretch: Display a custom message if the terminal is nil, tell the traveler to see the nearest information desk for more details.
-    
     func alertPassengers() {
         var departureTime: String
         var terminal: String
