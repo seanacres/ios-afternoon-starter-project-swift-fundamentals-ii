@@ -134,7 +134,7 @@ flightBoard.addFlight(flight: flight3)
 //: c. Make your `FlightStatus` enum conform to `String` so you can print the `rawValue` String values from the `enum`. See the [enum documentation](https://docs.swift.org/swift-book/LanguageGuide/Enumerations.html).
 //:
 //: d. Print out the current DepartureBoard you created using the function
-func printDepatures(departureBoard: DepartureBoard) {
+func printDepartures(departureBoard: DepartureBoard) {
     var departureTime: String
     var terminal: String
     
@@ -159,7 +159,7 @@ func printDepatures(departureBoard: DepartureBoard) {
     }
 }
 
-printDepatures(departureBoard: flightBoard)
+printDepartures(departureBoard: flightBoard)
 
 //: ## 4. Make a second function to print print an empty string if the `departureTime` is nil
 //: a. Createa new `printDepartures2(departureBoard:)` or modify the previous function
