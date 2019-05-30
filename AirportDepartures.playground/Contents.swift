@@ -101,13 +101,24 @@ class DepartureBoard {
 //: e. Stretch: Look at the API for [`DateComponents`](https://developer.apple.com/documentation/foundation/datecomponents?language=objc) for creating a specific time
 let flightBoard = DepartureBoard()
 
+var flight1Date: Date?
+var flight3Date: Date?
+
+let calendar = Calendar.current
+let flight1DateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current, year: 2019, month: 5, day: 30, hour: 17, minute: 30)
+let flight3DateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current, year: 2019, month: 5, day: 30, hour: 20, minute: 00)
+
+flight1Date = calendar.date(from: flight1DateComponents)
+flight3Date = calendar.date(from: flight3DateComponents)
+
+
 let airport1 = Airport(city: "Los Angeles (LAX)")
 let airport2 = Airport(city: "Tokyo (NRT)")
 let airport3 = Airport(city: "Las Vegas (LAS)")
 
-let flight1 = Flight(destination: airport1, airline: "Delta Air Lines", flightName: "DL 423", departureTime: Date(), terminal: "4", status: .enroute)
+let flight1 = Flight(destination: airport1, airline: "Delta Air Lines", flightName: "DL 423", departureTime: flight1Date, terminal: "4", status: .enroute)
 let flight2 = Flight(destination: airport2, airline: "United Airlines", flightName: "UA 7998", departureTime: nil, terminal: "7", status: .canceled)
-let flight3 = Flight(destination: airport3, airline: "JetBlue Airways", flightName: "B6 2611", departureTime: Date(), terminal: nil, status: .landed)
+let flight3 = Flight(destination: airport3, airline: "JetBlue Airways", flightName: "B6 2611", departureTime: flight3Date, terminal: nil, status: .landed)
 
 flightBoard.addFlight(flight: flight1)
 flightBoard.addFlight(flight: flight2)
