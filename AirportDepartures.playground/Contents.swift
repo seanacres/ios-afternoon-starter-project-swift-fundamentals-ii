@@ -40,9 +40,11 @@ struct Flight {
 
 class DepartureBoard {
     private (set) var departures: [Flight]
+    var currentAirport: Airport
     
     init() {
         departures = []
+        currentAirport = Airport(city: "New York City (JFK)")
     }
     
     func addFlight(flight: Flight) {
