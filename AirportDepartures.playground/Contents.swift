@@ -136,7 +136,6 @@ flightBoard.addFlight(flight: flight3)
 //: d. Print out the current DepartureBoard you created using the function
 func printDepartures(departureBoard: DepartureBoard) {
     var departureTime: String
-    var terminal: String
     
     let departureDateFormatter = DateFormatter()
     departureDateFormatter.timeStyle = .short
@@ -149,13 +148,7 @@ func printDepartures(departureBoard: DepartureBoard) {
             departureTime = ""
         }
         
-        if let departureTerminal = departure.terminal {
-            terminal = "\(departureTerminal)"
-        } else {
-            terminal = ""
-        }
-        
-        print("Destination: \(departure.destination.city)\nAirline: \(departure.airline)\nFlight: \(departure.flightName)\nDeparture Time: \(departureTime)\nTerminal: \(terminal)\nStatus: \(departure.status.rawValue)\n")
+        print("Destination: \(departure.destination.city)\nAirline: \(departure.airline)\nFlight: \(departure.flightName)\nDeparture Time: \(departureTime)\nTerminal: \(departure.terminal ?? "")\nStatus: \(departure.status.rawValue)\n")
     }
 }
 
